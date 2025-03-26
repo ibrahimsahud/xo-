@@ -1,0 +1,130 @@
+#header {
+    background-color: #e7ab88;
+    color: black;
+    font-weight: bold;
+    border-radius: 30px;
+    box-shadow: 0px 5px 13px rgba(0,0,0,0.3);
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    margin-bottom: 10px;
+}
+
+body {
+    background-color: #222;
+    margin: 0px;
+    font-family: 'Shantell Sans', cursive;
+    color: rgb(0, 0, 0);
+}
+
+button {
+    font-family: 'Shantell Sans', cursive;
+}
+
+#all-content {
+    background-color: #2c3e50;
+    height: 90vh;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#leaderboard {
+    background-color: #34495e;
+    padding: 15px;
+    border-radius: 10px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#leaderboard h3 {
+    margin: 0;
+    font-size: 20px;
+}
+
+#score-container {
+    display: flex;
+    justify-content: space-around;
+    font-size: 18px;
+
+}
+
+#main-content {
+    background-color: rgb(15, 15, 15);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#grid-container {
+    background-color: #f0db4f;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 50px;
+    border: #4d4d4d solid 12px;
+    border-radius: 30px;
+    box-shadow: 0px 5px 13px rgba(0,0,0, 0.9);
+    aspect-ratio: 1;
+}
+
+#header-and-board-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 40%;
+    height: 90%;
+}
+
+.square {
+    padding: 20px;
+    border: #1b1b1b solid 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.square:hover {
+    background-color: #a79246;
+    transform: scale(1.1);
+}
+
+.winning-square {
+    background-color: #4CAF50 !important;
+    color: rgb(2, 2, 2);
+    animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 10px #4CAF50; }
+    100% { box-shadow: 0 0 20px #4CAF50; }
+}
+
+.action-btn {
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    box-shadow: 0px 5px 13px rgba(0,0,0,0.3);
+    color: rgb(0, 0, 0);
+    background-color: #26a8cf;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.action-btn:hover {
+    box-shadow: 0px 5px 13px rgba(0,0,0, 0.7);
+    background-color: #9b59b6;
+}

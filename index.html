@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css"> 
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
+</head>
+<body>
+
+    <div id="all-content">
+        <div id="main-content">
+
+            <div id="header-and-board-wrapper"> 
+
+                <!-- 🏆 Leaderboard-->
+                <div id="leaderboard">
+                    <h3>Leaderboard</h3>
+                    <div id="score-container">
+                        <p>❌ Wins: <span id="score-x">0</span></p> 
+                        <p>⭕ Wins: <span id="score-o">0</span></p>
+                    </div>
+                </div>
+
+                <!-- 🔝Main title -->
+                <div id="header">
+                    <div id="instruction">
+                        <h2>X turn</h2>
+                    </div>
+                </div>
+
+                <!-- 🎮Main board -->
+                <div id="grid-container">
+                    <div class="square" value="1" style="border-top: none; border-left: none;"></div>
+                    <div class="square" value="2" style="border-top: none;"></div>
+                    <div class="square" value="3" style="border-top: none; border-right: none;"></div>
+
+                    <div class="square" value="4" style="border-left: none;"></div>
+                    <div class="square" value="5"></div>
+                    <div class="square" value="6" style="border-right: none;"></div>
+
+                    <div class="square" value="7" style="border-bottom: none; border-left: none;"></div>
+                    <div class="square" value="8" style="border-bottom: none;"></div>
+                    <div class="square" value="9" style="border-bottom: none; border-right: none;"></div>
+                </div>
+
+                <!-- 🔄 Restart button-->
+                <div id="footer">
+                    <button class="action-btn" id="reset-btn">Reset</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="main.js"></script>
+</html>
