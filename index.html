@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,17 +17,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
 </head>
 <body>
+    <!-- Game sounds-->
+    <audio id="click-sound" src="sounds/click.mp3" preload="auto"></audio>
+    <audio id="opponent-sound" src="sounds/opponent.mp3" preload="auto"></audio>
+    <audio id="win-sound" src="sounds/win.mp3" preload="auto"></audio>
+    <audio id="lose-sound" src="sounds/lose.mp3" preload="auto"></audio>
+    <audio id="start-sound" src="sounds/start.mp3" preload="auto"></audio>
 
     <div id="all-content">
         <div id="main-content">
 
-            <div id="header-and-board-wrapper"> 
+            <div id="header-and-board-wrapper">
 
                 <!-- 🏆 Leaderboard-->
                 <div id="leaderboard">
                     <h3>Leaderboard</h3>
                     <div id="score-container">
-                        <p>❌ Wins: <span id="score-x">0</span></p> 
+                        <p>❌ Wins: <span id="score-x">0</span></p>
                         <p>⭕ Wins: <span id="score-o">0</span></p>
                     </div>
                 </div>
