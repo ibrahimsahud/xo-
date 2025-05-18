@@ -2,7 +2,7 @@ let gridItems = document.getElementsByClassName("square");
 let currentTurn = "X";
 let gameIsFinished = false;
 let scores = { X: 0, O: 0 };
-let isSinglePlayer = true; 
+let isSinglePlayer = true;
 
 let boardArray = [
     "0", "1", "2",
@@ -10,6 +10,35 @@ let boardArray = [
     "6", "7", "8"
 ];
 
+// Definition of sound variables
+const clickSound = document.getElementById("click-sound");
+const opponentSound = document.getElementById("opponent-sound");
+const winSound = document.getElementById("win-sound");
+const loseSound = document.getElementById("lose-sound");
+const startSound = document.getElementById("start-sound");
+
+// Function to play audio safely with specified duration
+function playSound(sound, duration = 1000) {
+    if (sound) {
+        try {
+            // Stop any previous audio playback
+            sound.pause();
+            // Reset the sound to start
+            sound.currentTime = 0;
+
+            // Play audio immediately
+            sound.play();
+
+           // Stop the sound after the specified time (default 1 second)
+            setTimeout(() => {
+                sound.pause();
+                sound.currentTime = 0;
+            }, duration);
+        } catch (error) {
+            console.error("Audio playback error:", error);
+        }
+    }
+}
 
 function updateLeaderboard() {
     document.getElementById("score-x").innerText = scores.X;
@@ -17,7 +46,26 @@ function updateLeaderboard() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    // Update the board results
     updateLeaderboard();
+
+    // Make sure all sounds are loaded before playing them.
+    setTimeout(() => {
+        // Play the game start sound louder for 1 second
+        if (startSound) {
+            startSound.volume = 0.8; // Turn up the volume
+            playSound(startSound, 1000);
+        }
+    }, 500);
+
+    // Verify audio elements are loaded.
+    console.log("Audio elements uploaded:", {
+        clickSound: !!clickSound,
+        opponentSound: !!opponentSound,
+        winSound: !!winSound,
+        loseSound: !!loseSound,
+        startSound: !!startSound
+    });
 });
 
 for (const item of gridItems) {
@@ -34,7 +82,7 @@ for (const item of gridItems) {
         makeMove(index, currentTurn);
 
         if (!gameIsFinished && isSinglePlayer && currentTurn === "O") {
-            setTimeout(computerMove, 500); 
+            setTimeout(computerMove, 500);
         }
     });
 }
@@ -44,6 +92,13 @@ function makeMove(index, player) {
     let squareContent = document.querySelector(`.square[value="${index + 1}"]`);
     squareContent.innerText = player;
     squareContent.style.transform = "scale(1.2)";
+
+   // Play the click sound for player X only
+// (The opponent's sound is played in the computerMove function)
+    if (player === "X") {
+        playSound(clickSound, 500);
+    }
+
     setTimeout(() => squareContent.style.transform = "scale(1)", 200);
 
     boardArray[index] = player;
@@ -57,15 +112,21 @@ function makeMove(index, player) {
 
 
 function computerMove() {
-    let bestMove = findBestMove();
-    if (bestMove !== -1) {
-        makeMove(bestMove, "O");
-    }
-}
+    // Play opponent's sound before making a move
+    playSound(opponentSound, 500);
+
+//Short delay before computer movement   
+ setTimeout(() => {
+        let bestMove = findBestMove();
+        if (bestMove !== -1) {
+            makeMove(bestMove, "O");
+        }
+    }, 200);
+} 
 
 
 function findBestMove() {
-   
+
     for (let i = 0; i < 9; i++) {
         if (boardArray[i] !== "X" && boardArray[i] !== "O") {
             boardArray[i] = "O";
@@ -77,12 +138,12 @@ function findBestMove() {
         }
     }
 
- 
+
     for (let i = 0; i < 9; i++) {
         if (boardArray[i] !== "X" && boardArray[i] !== "O") {
             boardArray[i] = "X";
             if (checkWin("X")) {
-                boardArray[i] = i.toString(); 
+                boardArray[i] = i.toString();
                 return i;
             }
             boardArray[i] = i.toString();
@@ -96,18 +157,18 @@ function findBestMove() {
         return parseInt(availableMoves[randomIndex]);
     }
 
-    return -1; 
+    return -1;
 }
 
 
 function checkWin(player) {
     const winPatterns = [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8], 
-        [0, 3, 6], [1, 4, 7], [2, 5, 8], 
-        [0, 4, 8], [2, 4, 6]            
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
     ];
 
-    return winPatterns.some(pattern => 
+    return winPatterns.some(pattern =>
         boardArray[pattern[0]] === player &&
         boardArray[pattern[1]] === player &&
         boardArray[pattern[2]] === player
@@ -118,8 +179,8 @@ function checkWin(player) {
 function evaluateBoard() {
     const winPatterns = [
         [0, 1, 2], [3, 4, 5], [6, 7, 8],
-        [0, 3, 6], [1, 4, 7], [2, 5, 8], 
-        [0, 4, 8], [2, 4, 6]            
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
     ];
 
     for (const pattern of winPatterns) {
@@ -129,6 +190,14 @@ function evaluateBoard() {
             scores[boardArray[a]]++;
             updateLeaderboard();
             highlightWinningPattern(pattern);
+
+            // Play win or lose sound
+            if (boardArray[a] === "X") {
+                playSound(winSound);
+            } else {
+                playSound(loseSound);
+            }
+
             alertify.success(`${boardArray[a]} Won! 🎉`);
             return;
         }
@@ -166,4 +235,10 @@ function reset() {
     gameIsFinished = false;
     currentTurn = "X";
     document.getElementById("instruction").innerText = `${currentTurn} turn`;
+
+    // Play the game start sound louder for 1 second
+    if (startSound) {
+        startSound.volume = 0.8; // Turn up the volume
+        playSound(startSound, 1000);
+    }
 }
